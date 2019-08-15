@@ -200,7 +200,14 @@ class NumericInput extends Component {
   };
 
   render = () => {
-    const { label, id, highlightInvalid, onChange, ...rest } = this.props;
+    const {
+      label,
+      id,
+      highlightInvalid,
+      onChange,
+      isTabletAndUp,
+      ...rest
+    } = this.props;
 
     const up = (
       <PlusIcon
@@ -229,7 +236,8 @@ class NumericInput extends Component {
               onChange={this.overloadedOnChange}
               upHandler={up}
               downHandler={down}
-              ref={this.setInputRef}
+              ref={isTabletAndUp ? this.setInputRef : null}
+              focusOnUpDown={isTabletAndUp}
             />
           </div>
         </label>
@@ -260,7 +268,8 @@ NumericInput.propTypes = {
    * @param {Number} value New value */
   onChange: PropTypes.func,
   /** Prop to set the value of this controlled component */
-  value: PropTypes.number
+  value: PropTypes.number,
+  isTabletAndUp: PropTypes.bool
 };
 
 NumericInput.defaultProps = {
@@ -269,7 +278,8 @@ NumericInput.defaultProps = {
   label: '',
   id: null,
   onChange: () => {},
-  value: null
+  value: null,
+  isTabletAndUp: true
 };
 
 export default NumericInput;
